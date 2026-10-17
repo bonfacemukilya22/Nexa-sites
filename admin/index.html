@@ -1,0 +1,60 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NexaMarkets Admin</title>
+<link rel="stylesheet" href="../assets/style.css"><script src="../assets/common.js"></script>
+<style>
+#login{min-height:100vh;display:grid;place-items:center;background:#060a14;padding:20px}
+#login .box{width:min(400px,100%);background:#111826;border:1px solid #1c2638;border-radius:16px;padding:30px;position:relative;z-index:5}
+#login h1{margin:0 0 20px;font-size:22px;color:#fff}
+#login label{display:block;margin:14px 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;color:#8b97ab}
+#login input{display:block;width:100%;height:50px;padding:0 14px;font-size:16px;color:#fff;background:#0b1220;border:1px solid #243049;border-radius:10px;outline:0;user-select:text;-webkit-user-select:text}
+#login input:focus{border-color:#2f6bff}
+#login button{width:100%;height:52px;margin-top:20px;border:0;border-radius:10px;background:#2f6bff;color:#fff;font-size:17px;font-weight:700;cursor:pointer}
+#e{color:#ff5c6e;margin-top:12px;min-height:18px;font-size:14px}
+</style></head><body>
+<div id="login" class="hide"><form class="box" id="lf" autocomplete="on">
+ <h1>NexaMarkets Admin</h1>
+ <label for="m">USERNAME</label><input id="m" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" autofocus>
+ <label for="p">PASSWORD</label><input id="p" name="password" type="password" autocomplete="current-password">
+ <div id="e"></div><button type="submit">Sign in</button></form></div>
+
+<div id="app" class="hide"><header><div class="logo">Nexa<b>Markets</b> Admin</div>
+<label><input type="checkbox" id="mtc"> Maintenance mode</label><button class="ic" id="th" aria-label="Toggle theme">◐</button><button id="out">Sign out</button></header>
+<main style="grid-template-columns:1fr 1fr">
+<div class="card"><h3>Pending deposits &amp; withdrawals</h3><div class="scroll" id="tx"></div></div>
+<div class="card"><h3>Support chats</h3><div id="ch"></div></div>
+<div class="card"><h3>Assist a withdrawal</h3><p class="mu" style="margin:0 0 6px">Submit a withdrawal request for a user who is having trouble. It appears in the pending list for approval.</p>
+ <select id="au" class="field"></select><select id="am" class="field"><option value="mpesa">M-Pesa</option><option value="crypto">Crypto</option><option value="card">Card</option></select>
+ <input id="aa" type="number" class="field" placeholder="Amount (USD)"><input id="ad" class="field" placeholder="Payout details (phone / wallet / card ref)"><button class="pri big2" id="ago">Submit for user</button></div>
+<div class="card"><h3>Send notification</h3><p class="mu" style="margin:0 0 6px">Only messages sent here appear in users' notification bell.</p><select id="to" class="field"></select><textarea id="nt" rows="3" style="width:100%" placeholder="Message to users"></textarea><button class="pri" id="sn" style="margin-top:6px">Send</button></div>
+<div class="card" style="grid-column:1/-1"><h3>Users</h3><div class="scroll" id="us"></div></div></main></div>
+<script>
+const $=s=>document.querySelector(s);let A;
+function boot(){A=Auth.me();if(!A||A.role!=='admin'){$('#login').classList.remove('hide');$('#app').classList.add('hide');setTimeout(()=>$('#m').focus(),50);return}
+ $('#login').classList.add('hide');$('#app').classList.remove('hide');render()}
+$('#lf').onsubmit=e=>{e.preventDefault();try{Auth.signin($('#m').value,$('#p').value,'admin');boot()}catch(x){$('#e').textContent='Wrong username or password'}};
+$('#out').onclick=()=>{Auth.out();boot()};$('#th').onclick=toggleTheme;
+$('#mtc').onchange=e=>{const d=DB.get();d.maintenance=e.target.checked;if(e.target.checked)d.notes.push({id:uid(),sys:true,text:'Scheduled maintenance: trading may be briefly unavailable.',t:Date.now()});DB.save(d)};
+$('#sn').onclick=()=>{const t=$('#nt').value.trim();if(!t)return;const d=DB.get();d.notes.push({id:uid(),text:t,to:$('#to').value||null,t:Date.now()});DB.save(d);$('#nt').value=''};   // admin message: visible to users
+$('#ago').onclick=()=>{const d=DB.get(),u=d.users.find(x=>x.id===$('#au').value),m=$('#am').value,a=+$('#aa').value,det=$('#ad').value.trim(),MIN={mpesa:5,crypto:10,card:10};
+ if(!u)return alert('Select a user.');if(!(a>=MIN[m]))return alert('Minimum for this method is $'+MIN[m]+'.');
+ if(a>u.real)return alert('User has only $'+fmt(u.real)+' in the real account.');if(!det)return alert('Enter payout details.');
+ u.real-=a;d.txs.push({id:uid(),uid:u.id,type:'Withdraw',method:$('#am').selectedOptions[0].text+' (admin-assisted)',cur:'USD',amt:a,ref:det,status:'Pending',t:Date.now()});
+ d.notes.push({id:uid(),sys:true,to:u.id,text:`An admin submitted a $${fmt(a)} withdrawal for you.`,t:Date.now()});
+ DB.save(d);['#aa','#ad'].forEach(s=>$(s).value='');render()};
+function decide(id,ok){const d=DB.get(),x=d.txs.find(t=>t.id===id),u=d.users.find(u=>u.id===x.uid);x.status=ok?'Approved':'Rejected';
+ if(x.type==='Deposit'&&ok)u.real+=x.amt;if(x.type==='Withdraw'&&!ok)u.real+=x.amt;
+ d.notes.push({id:uid(),sys:true,to:u.id,text:`Your ${x.type.toLowerCase()} of ${x.amt} ${x.cur} was ${x.status.toLowerCase()}.`,t:Date.now()});DB.save(d);render()}
+function reply(u_){const i=document.getElementById('r'+u_),t=i.value.trim();if(!t)return;const d=DB.get();d.chats.push({uid:u_,from:'admin',text:t,t:Date.now()});
+ d.chats=d.chats.filter(c=>!(c.uid===u_&&c.esc));DB.save(d);render()}
+function bal(id,k){const v=prompt('New '+k+' balance');if(v===null||isNaN(+v))return;const d=DB.get();d.users.find(u=>u.id===id)[k]=+v;DB.save(d);render()}
+Object.assign(window,{decide,reply,bal});
+const fill=(id,h)=>{const e=$(id),v=e.value;e.innerHTML=h;if([...e.options].some(o=>o.value===v))e.value=v};
+function render(){const d=DB.get(),us=d.users.filter(u=>u.role==='user'),nm=id=>(us.find(u=>u.id===id)||{}).email;$('#mtc').checked=d.maintenance;
+ const opts=us.map(u=>`<option value="${u.id}">${u.email}</option>`).join('');fill('#to','<option value="">All users</option>'+opts);fill('#au',opts||'<option value="">No users yet</option>');
+ const p=d.txs.filter(t=>t.status==='Pending');
+ $('#tx').innerHTML=p.length?'<table><tr><th>User<th>Type<th>Method<th>Amount<th>Details<th></tr>'+p.map(t=>`<tr><td>${nm(t.uid)}<td>${t.type}<td>${t.method}<td>${t.amt} ${t.cur}<td>${t.ref||''}<td><button onclick="decide('${t.id}',true)">Approve</button> <button onclick="decide('${t.id}',false)">Reject</button></tr>`).join('')+'</table>':'<div class="mu">Nothing pending.</div>';
+ const ids=[...new Set(d.chats.map(c=>c.uid))];
+ $('#ch').innerHTML=ids.map(id=>{const m=d.chats.filter(c=>c.uid===id),esc=m.some(c=>c.esc);
+  return`<div class="note"><b>${nm(id)}</b> ${esc?'<span class="dn">needs admin</span>':''}${m.slice(-5).map(x=>`<div class="mu">${x.from==='flag'?'user':x.from}: ${x.text}</div>`).join('')}<div class="row"><input id="r${id}" placeholder="Reply"><button style="flex:0" onclick="reply('${id}')">Send</button></div></div>`}).join('')||'<div class="mu">No chats yet.</div>';
+ $('#us').innerHTML='<table><tr><th>User<th>Real<th>Demo<th></tr>'+us.map(u=>`<tr><td>${u.email}<td>${fmt(u.real)}<td>${fmt(u.demo)}<td><button onclick="bal('${u.id}','real')">Edit real</button></tr>`).join('')+'</table>'}
+setInterval(()=>{if(A&&!document.activeElement.matches('input,textarea,select'))render()},4000);boot();
+</script></body></html>

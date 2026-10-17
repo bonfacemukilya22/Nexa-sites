@@ -1,0 +1,470 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NexaMarkets</title>
+<link rel="stylesheet" href="assets/style.css"><script src="assets/common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script></head><body>
+<div id="authv" class="hide"><div class="land">
+ <section class="lhero">
+  <div class="brand"><div class="tile"><img src="assets/logo.png" alt="NexaMarkets logo"></div><span>NexaMarkets</span></div>
+  <div class="lmain"><h1>Trade smarter with<br><span>real-time markets</span></h1>
+   <p>Trade forex and crypto markets with a free demo account, AI-assisted market scanning and fast-response customer support.</p>
+   <div class="lstats"><div><b id="stM">28</b><span>MARKETS</span></div><div><b>95%</b><span>PAYOUT</span></div><div><b>24/7</b><span>SUPPORT</span></div></div></div>
+  <div class="lfoot">© 2026 NexaMarkets. Trading involves risk of loss.</div>
+ </section>
+ <section class="lform"><form class="lbox" id="authForm" autocomplete="on" novalidate>
+  <h2>Welcome back</h2><p class="sub">Sign in to your account to continue</p>
+  <div class="fl">EMAIL ADDRESS</div>
+  <div class="iw"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><input id="aMail" name="email" type="email" class="field" placeholder="user@gmail.com" autocomplete="email"></div>
+  <div class="fl">PASSWORD</div>
+  <div class="iw"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><input id="aPass" name="password" type="password" class="field" placeholder="Enter your password" autocomplete="current-password">
+   <button id="eye" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:none;stroke-width:1.7"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+  <div class="lrow"><label><input type="checkbox" id="aRem"> Remember me</label><a href="#" id="aForgot">Forgot password?</a></div>
+  <div id="aErr" class="dn" style="margin-bottom:10px"></div>
+  <button id="aGo" type="submit" class="go">Sign In →</button>
+  <p class="sw">Don't have an account? <a href="signup.html">Create account</a></p>
+ </form></section></div></div>
+
+<div id="app" class="hide">
+<div id="mt" class="banner hide">System maintenance in progress. Trading may be unavailable.</div>
+<header class="top"><div class="logo" style="margin:0;display:flex;align-items:center;gap:10px"><span class="tile" style="display:block;width:34px;height:34px;border-radius:9px;overflow:hidden;flex:none"><img src="assets/logo.png" alt="" style="width:100%;height:100%;display:block"></span><span>Nexa<b>Markets</b></span></div>
+ <nav><button id="nHub">⌂ TRADER'S HUB</button><button id="nDep">⊕ TOP UP</button><button id="nWd">⊖ WITHDRAW</button><button id="nHist">⟲ HISTORY</button><button id="nChat">▭ CHAT</button></nav>
+ <span class="sp"></span>
+ <button class="pri" id="bAI">✦ AI</button><button class="ic" id="bSnd" aria-label="Sound">🔊</button><button class="ic" id="bTheme" aria-label="Toggle theme">☀</button>
+ <button id="bAcct"><span id="badge" class="bdg real">R</span><b id="bal"></b>&nbsp;▾</button>
+ <button class="pri" id="bDep">TOP UP</button>
+ <button class="ic" id="bNote" aria-label="Notifications">🔔<span id="nc" class="dot hide"></span></button>
+ <button class="ic" id="bProf" aria-label="Profile">👤</button></header>
+<div id="acctMenu" class="card pop">
+ <button class="am" data-m="real"><i style="background:#3b82f6"></i>Real Account<em id="aR"></em></button>
+ <button class="am" data-m="demo"><i style="background:var(--dn)"></i>Demo Account<em id="aD"></em></button><hr style="border:0;border-top:1px solid var(--ln)">
+ <button class="am mu" id="rstDemo">⟲ Reset Demo Balance</button></div>
+<div id="notePop" class="card pop"></div>
+<div id="profPop" class="card pop"><b id="pName"></b><div class="mu" id="pMail"></div><button id="bOut" style="margin-top:8px;width:100%">Sign out</button></div>
+
+<div class="shell">
+ <section class="left"><div class="lt"><button data-t="open" class="on">Open (<span id="cO">0</span>)</button><button data-t="closed">Closed (<span id="cC">0</span>)</button><button data-t="tx">Transactions</button></div>
+  <div class="lbody" id="lbody"></div>
+  <div class="lfoot2"><div><span class="mu">LAST SESSION</span><span id="ls1"></span></div><div><span class="mu">SESSION P/L</span><b id="ls2"></b></div><div><span class="mu" id="ls3"></span></div></div></section>
+
+ <section class="mid"><div id="tcard" class="tcard hide"></div>
+  <div class="cwrap"><div id="chart"><canvas id="cv"></canvas></div>
+   <div class="assetbox" id="assetBtn"><span style="font-size:20px">▥</span><div><small id="aName2"></small><b id="px"></b></div><span class="mu">▾</span></div>
+   <div class="ctools">
+    <button id="tTf" class="on" title="Timeframe">1T</button>
+    <button id="tType" title="Chart type"></button>
+    <button id="tZoom" title="Zoom"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/></svg></button>
+    <button id="tGrid" class="on" title="Grid"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9.5h16M4 14.5h16M9.5 4v16M14.5 4v16"/></svg></button>
+   </div></div></section>
+
+ <aside class="right">
+  <div class="digits" id="digits"></div>
+  <div class="term hide" id="term"></div>
+  <div class="lbl"><span>TRADING MODE</span><span style="font-weight:400;letter-spacing:0">You place each trade · same probabilities</span></div>
+  <div class="seg big" id="tm"><button data-v="auto">AUTO</button><button data-v="manual" class="on">MANUAL</button></div>
+  <div class="trio" style="margin-top:14px">
+   <div><small>TARGET PROFIT</small>$<input id="tp" type="number" value="200"></div>
+   <div><small>STOP LOSS</small>$<input id="sl" type="number" value="999"></div>
+   <div><small>MULTIPLIER</small>x<input id="mul" type="number" min="1" value="2"></div></div>
+  <div class="lbl"><span>STAKE AMOUNT</span><div class="seg" id="sm"><button data-v="stake" class="on">Stake</button><button data-v="payout">Payout</button></div></div>
+  <div class="stk"><button id="mi">−</button><input id="amt" type="number" min="1" placeholder="$ Stake" aria-label="Stake amount"><button id="pl">+</button></div>
+  <div class="lbl" style="margin-top:18px"><span id="lastT"></span><b class="up" id="lastP" style="font-size:15px"></b></div>
+  <div class="rbot">
+   <div id="bsWrap"><div class="bs">
+    <button class="b" id="bBuy">↑ BUY <b id="bv">$0.00</b><small>95.0% Payout</small></button>
+    <button class="s" id="bSell">↓ SELL <b id="sv">$0.00</b><small>95.0% Payout</small></button></div>
+    <button class="scanbtn" id="scanBtn">✦ AI MARKET SCANNER</button></div>
+   <div id="stopWrap" class="hide"><button class="stopbtn" id="stopBtn"><span id="stopTxt"></span></button></div>
+  </div>
+ </aside></div>
+
+<button class="fab" id="fab" aria-label="AI Bot">AI<br>Bot</button>
+<div class="card" id="chatcard"><h3>Support chat</h3><div id="chatlog"></div>
+ <div class="row"><input id="cin" placeholder="Type your message"><button id="cgo" style="flex:0">Send</button></div></div></div>
+
+<div class="veil" id="veil"></div>
+<div class="drawer" id="drawer"><div class="mh" style="padding:18px;margin:0"><b style="font-size:18px;flex:1">Assets</b><button class="x" id="dClose">✕</button></div>
+ <div style="padding:12px 18px"><input id="dq" class="field" placeholder="Search assets" style="margin:0"></div>
+ <div class="dl" id="dl"></div>
+ <div style="display:flex;gap:10px;padding:16px 18px"><button id="dInfo" style="flex:1;padding:12px">Show info</button><button id="dSel" class="pri" style="flex:1;padding:12px">Select Asset</button></div></div>
+<div class="modal" id="mdl"><div class="card" id="mbody"></div></div>
+<div id="toast"></div>
+
+<!-- AI Trading Bot panel -->
+<div class="botp" id="botp"><div class="bph"><button id="bpBack" aria-label="Back">‹</button><b>AI Trading Bot</b><span class="mu">🔔</span></div>
+ <div class="bpb">
+  <div class="bcard"><div class="bl">SESSION DURATION</div>
+   <select id="bDur" class="field"><option value="30">30 Seconds</option><option value="60">1 Minute</option><option value="120">2 Minutes</option><option value="300">5 Minutes</option></select>
+   <div class="b3"><button class="bg" id="bStart">Start</button><button class="ba" id="bPause">Pause</button><button class="br" id="bStop">Stop</button></div></div>
+  <div class="bgrid">
+   <div class="bs2"><small>CURRENT BALANCE</small><b id="bsBal"></b></div><div class="bs2"><small>TRADE AMOUNT</small><b id="bsAmt"></b></div>
+   <div class="bs2"><small>DURATION</small><b id="bsDur"></b></div><div class="bs2"><small>SESSIONS COMPLETED</small><b id="bsSes"></b></div>
+   <div class="bs2"><small>TOTAL P/L</small><b id="bsPl"></b></div><div class="bs2"><small>WIN RATE</small><b id="bsWr"></b></div></div>
+  <div class="bcard"><div class="wl"><span class="w">● Wins: <span id="wW">0</span></span><span class="m" id="wT">0 trades</span><span class="l">Losses: <span id="wL">0</span> ●</span></div>
+   <div class="pbar empty" id="pb"><i id="pbi" style="width:0"></i></div><div class="wl2"><span class="w" id="wp1" style="color:#10b981">—</span><span id="wp2" style="color:#ff2d46">—</span></div></div>
+  <div class="bcard" style="text-align:center"><span class="spill off" id="bSt">● Stopped</span><div class="tmr" id="bTm">00:00</div><div class="tbar"><i id="bTb" style="width:0"></i></div><div class="mu" style="margin-top:12px" id="bSs">Sessions: 0</div></div>
+  <div class="bcard" style="padding:0;overflow:hidden"><div style="display:flex;justify-content:space-between;padding:16px 18px"><b>Live Execution Logs <span style="color:#10b981">●</span></b><span class="mu" id="bLn">0 entries</span></div><div class="logbox" id="bLog"></div></div>
+  <p class="mu" style="font-size:12px;line-height:1.6">Signals come from volatility and trend analysis of the simulated feed. Results are not guaranteed and trading can lose money. Each bot trade is capped at a $50 loss.</p>
+ </div></div>
+
+<div class="promo-v" id="promoV"><div class="promo">
+ <button class="x2" id="pX" aria-label="Close">✕</button>
+ <div class="pi2"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M10 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/><path d="M18 4v4M16 6h4"/></svg></div>
+ <h3>Ready for real trading?</h3>
+ <p>You've seen how the platform works. When you're ready, fund your Real Account to trade with real money. Trading involves risk.</p>
+ <button class="cta2" id="pGo"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M16 12.5h3"/></svg>TOP UP NOW</button>
+ <button class="later" id="pLater">MAYBE LATER</button></div></div>
+
+<script>
+// =====================  CONFIG  =====================
+const PASSKEY='GK48RP';            // NOTE: visible in page source; move the check to your server before going live
+const MAXLOSS=50;                  // hard cap on any single BOT trade, and on the bot's session loss
+const LEV=500;                     // simulated P/L scale: P/L = move% x stake x multiplier x LEV
+const MIN={mpesa:5,crypto:10,card:10};
+const FX='EURUSD:1.08,GBPUSD:1.27,USDJPY:151,AUDUSD:.66,USDCAD:1.36,USDCHF:.89,NZDUSD:.6,EURGBP:.85,EURJPY:163,GBPJPY:192,AUDJPY:99,EURCHF:.96,EURAUD:1.64,GBPAUD:1.93,CADJPY:111,CHFJPY:170';
+const CR='BTCUSDT:65000,ETHUSDT:3200,BNBUSDT:580,SOLUSDT:150,XRPUSDT:.52,ADAUSDT:.45,DOGEUSDT:.15,AVAXUSDT:35,LINKUSDT:14,LTCUSDT:80,DOTUSDT:7,TRXUSDT:.12';
+const SYMS={},DEC={};
+FX.split(',').forEach(s=>{const[c,p]=s.split(':');SYMS['FX:'+c]=[c.slice(0,3)+'/'+c.slice(3)+' (OTC)',+p,'Forex']});
+CR.split(',').forEach(s=>{const[c,p]=s.split(':');SYMS['BINANCE:'+c]=[c.replace('USDT','')+'/USD (OTC)',+p,'Crypto']});
+for(const k in SYMS){const b=SYMS[k][1];DEC[k]=SYMS[k][2]==='Forex'?(b>50?3:5):(b>1000?2:b>10?3:b>1?4:5)}
+const nm=k=>(SYMS[k]||[k])[0];
+
+// crypto deposit config
+const COINS={USDT:{n:'Tether',nets:['TRC20','ERC20','BEP20']},BTC:{n:'Bitcoin',nets:['BTC']},ETH:{n:'Ethereum',nets:['ERC20']},BNB:{n:'BNB',nets:['BEP20']},SOL:{n:'Solana',nets:['SOL']}};
+const NETS={TRC20:{t:'TRC-20',s:'(Tron)',ic:'TRX'},ERC20:{t:'ERC-20',s:'(Ethereum)',ic:'ETH'},BEP20:{t:'BEP-20',s:'(BNB Chain)',ic:'BNB'},BTC:{t:'Bitcoin Network',s:'',ic:'BTC'},SOL:{t:'Solana Network',s:'',ic:'SOL'}};
+const ADDR={ERC20:'0xc8d302b1f5f9877187dea9d4b39c079066b241ae',BEP20:'0xc8d302b1f5f9877187dea9d4b39c079066b241ae',
+ TRC20:'',                                                  // <-- paste a Tron address here (starts with T). An 0x address will NOT work on Tron.
+ BTC:'1Cs9r9Mt7PjDAtAMguf6VypSVD7cHb1ncs',SOL:'AjCCjAnsp8XsoZbT2dDPQWvp5VxGMiqnrVxrKAtYW3J9'};
+const ICO={
+ USDT:'<svg viewBox="0 0 32 32"><path d="M16 3l11 5-3 17-8 4-8-4-3-17z" fill="#26a17b"/><path d="M10 11h12v2.5h-4.8V21h-2.4v-7.5H10z" fill="#fff"/></svg>',
+ BTC:'<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#f7931a"/><text x="16" y="22.5" font-size="18" font-weight="700" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif">₿</text></svg>',
+ ETH:'<svg viewBox="0 0 32 32"><path d="M16 3l8 13-8 5-8-5z" fill="#9aa9ff"/><path d="M16 22.5l8-5-8 11.5-8-11.5z" fill="#5f70d8"/></svg>',
+ BNB:'<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#f3ba2f"/><path d="M16 7l3 3-3 3-3-3zM8 16l3-3 3 3-3 3zM18 16l3-3 3 3-3 3zM16 19l3 3-3 3-3-3z" fill="#fff"/></svg>',
+ SOL:'<svg viewBox="0 0 32 32"><defs><linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#14f195"/><stop offset="1" stop-color="#9945ff"/></linearGradient></defs><path d="M9 8h17l-3 3.5H6zM6 14.2h17l3 3.5H9zM9 20.5h17l-3 3.5H6z" fill="url(#sg)"/></svg>',
+ TRX:'<svg viewBox="0 0 32 32"><path d="M5 7l21 3-11 17z" fill="none" stroke="#eb0029" stroke-width="2.2" stroke-linejoin="round"/><path d="M5 7l12 10 9-7M17 17l-2 10" fill="none" stroke="#eb0029" stroke-width="2"/></svg>'};
+const ico=k=>ICO[k]||'';
+const RATE={USDT:1};let rateAt=0;
+function loadRates(){if(Date.now()-rateAt<60000)return Promise.resolve();
+ const f=fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana&vs_currencies=usd').then(r=>r.json())
+  .then(j=>{RATE.BTC=j.bitcoin.usd;RATE.ETH=j.ethereum.usd;RATE.BNB=j.binancecoin.usd;RATE.SOL=j.solana.usd;rateAt=Date.now()}).catch(()=>{});
+ return Promise.race([f,new Promise(r=>setTimeout(r,3500))])}
+
+// =====================  HELPERS / STATE  =====================
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const onEnter=(el,fn)=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();fn()}});   // never blocks other keys
+const isInv=()=>typeof Auth.investor==='function'&&Auth.investor();
+const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',5000)};
+const mmss=s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+let U,tab='open',sym='FX:EURUSD',stakeMode='stake',pick=sym,muted=false,nextPromo=Date.now()+120000,OPENP=[];
+const sess=Date.now();
+let botAuth=sessionStorage.getItem('botAuth')==='1';
+const BOT={on:false,paused:false,dur:30,sessions:0,wins:0,losses:0,pl:0,logs:[],cool:0,sweep:0,cur:null,lastScan:0};
+const log=m=>{BOT.logs.push([new Date().toLocaleTimeString(),m]);if(BOT.logs.length>80)BOT.logs.shift();botUI()};
+
+// =====================  SIMULATED PRICE FEED  =====================
+const TK={},P={},DG={},SEED=3700;
+const SIGMA=k=>SYMS[k][2]==='Crypto'?0.00035:0.00007;
+const step=(k,q)=>{const b=SYMS[k][1],r=(Math.random()+Math.random()+Math.random()-1.5)*2;return +(q+(b-q)*0.0008+q*SIGMA(k)*r).toFixed(DEC[k])};
+const lastD=(k,p)=>+p.toFixed(DEC[k]).slice(-1);
+for(const k in SYMS){let q=SYMS[k][1];const tmp=[];for(let i=0;i<SEED;i++){tmp.push(q);q=step(k,q)}tmp.reverse();
+ const now=Date.now();TK[k]=tmp.map((p,i)=>({t:now-(SEED-1-i)*1000,p}));P[k]=tmp[tmp.length-1];DG[k]=tmp.slice(-100).map(p=>lastD(k,p))}
+setInterval(()=>{const now=Date.now();for(const k in SYMS){const p=step(k,P[k]);P[k]=p;TK[k].push({t:now,p});if(TK[k].length>6000)TK[k].shift();DG[k].push(lastD(k,p));if(DG[k].length>100)DG[k].shift()}if(U)tick()},1000);
+let roam=0;setInterval(()=>{roam=(roam+1)%10;if(U)digits()},350);
+setInterval(()=>{if(U){tcard();botUI()}},200);
+
+const D=()=>DB.get(),me=d=>d.users.find(u=>u.id===U.id);
+function cleanup(){const d=D();let ch=false;d.positions.forEach(p=>{if(p.open&&!SYMS[p.sym]){const u=d.users.find(x=>x.id===p.uid);if(u)u[p.acct]+=p.amt;p.open=false;p.exit=p.entry;p.closed=Date.now();p.pl=0;ch=true}});if(ch)DB.save(d)}
+function boot(){U=Auth.me();if(!U||U.role!=='user'){$('#authv').classList.remove('hide');$('#app').classList.add('hide');return}
+ cleanup();nextPromo=Date.now()+120000;$('#authv').classList.add('hide');$('#app').classList.remove('hide');setSym(sym);render();tick();drawChat();setType()}
+
+// =====================  SIGN IN  =====================
+$('#stM').textContent=Object.keys(SYMS).length;
+$('#aForgot').onclick=e=>{e.preventDefault();$('#aErr').textContent='Password reset by email needs your backend. For now, contact support.'};
+$('#eye').onclick=()=>{const p=$('#aPass');p.type=p.type==='password'?'text':'password'};
+$('#authForm').addEventListener('submit',e=>{e.preventDefault();
+ try{const m=$('#aMail').value.trim(),p=$('#aPass').value;if(!m||p.length<6)throw'Enter your email and a password of 6+ characters';
+  Auth.signin(m,p,'user',$('#aRem').checked);boot()}catch(x){$('#aErr').textContent=x}});
+if(location.search.includes('signup'))location.replace('signup.html');
+$('#bOut').onclick=()=>{if(BOT.on)endBot('Signed out',true);hidePromo();$('#profPop').classList.remove('show');Auth.out();boot()};
+$('#bTheme').onclick=()=>{toggleTheme();drawChart()};
+$('#bSnd').onclick=()=>{muted=!muted;$('#bSnd').textContent=muted?'🔇':'🔊'};
+
+// ---------- "ready for real trading" pop-up: after 2 min, then every 5 min while on Demo ----------
+const hidePromo=()=>$('#promoV').classList.remove('show');
+setInterval(()=>{if(!U||isInv()||U.mode!=='demo'||U.real>0||Date.now()<nextPromo)return;
+ if($('#mdl').classList.contains('show')||$('#drawer').classList.contains('show')||$('#botp').classList.contains('show'))return;
+ $('#promoV').classList.add('show');nextPromo=Date.now()+300000},5000);
+$('#pX').onclick=$('#pLater').onclick=hidePromo;$('#pGo').onclick=()=>{hidePromo();topup()};
+
+// ---------- popovers (notifications show ONLY messages the admin sent) ----------
+const pops=['#notePop','#profPop','#acctMenu'];
+const showPop=id=>{pops.forEach(p=>p!==id&&$(p).classList.remove('show'));$(id).classList.toggle('show')};
+const myNotes=d=>d.notes.filter(n=>!n.sys&&(!n.to||n.to===U.id));
+$('#bProf').onclick=()=>{$('#pName').textContent=U.name;$('#pMail').textContent=U.email;showPop('#profPop')};
+$('#bNote').onclick=()=>{const l=myNotes(D()).reverse();
+ $('#notePop').innerHTML='<h3>Notifications</h3>'+(l.map(n=>`<div class="note">${n.text}<div class="mu">${new Date(n.t).toLocaleString()}</div></div>`).join('')||'<div class="mu">No updates from admin.</div>');
+ showPop('#notePop');localStorage.setItem('seen'+U.id,Date.now());render()};
+$('#bAcct').onclick=()=>showPop('#acctMenu');
+$$('#acctMenu [data-m]').forEach(b=>b.onclick=()=>{const d=D();me(d).mode=b.dataset.m;DB.save(d);$('#acctMenu').classList.remove('show');render()});
+$('#rstDemo').onclick=()=>{const d=D();me(d).demo=10000;DB.save(d);$('#acctMenu').classList.remove('show');render()};
+$('#nHub').onclick=()=>$('#bProf').click();$('#nDep').onclick=$('#bDep').onclick=()=>topup();$('#nWd').onclick=()=>withdraw();
+$('#nHist').onclick=()=>setTab('tx');$('#nChat').onclick=()=>$('#chatcard').classList.toggle('show');
+$$('.lt button').forEach(b=>b.onclick=()=>setTab(b.dataset.t));
+function setTab(t){tab=t;$$('.lt button').forEach(x=>x.classList.toggle('on',x.dataset.t===t));render()}
+
+// =====================  CUSTOM CHART (draws the same prices your trades use)  =====================
+const TFL={T:'1T',5:'5S',15:'15S',30:'30S',60:'1M'},TFS=['T',5,15,30,60],ZOOMS=[60,110,200],TYPES=['line','candles','area'];
+const CH={tf:'T',type:'line',zoom:0,grid:true,mx:null,my:null};
+const TI={line:'<svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 8-9"/><path d="M15 5h5v5"/></svg>',
+ candles:'<svg viewBox="0 0 24 24"><path d="M7 4v16M12 7v12M17 3v14"/><rect x="5" y="8" width="4" height="7" rx="1"/><rect x="10" y="10" width="4" height="6" rx="1"/><rect x="15" y="6" width="4" height="7" rx="1"/></svg>',
+ area:'<svg viewBox="0 0 24 24"><path d="M3 18l5-7 4 3 8-9v13z"/></svg>'};
+function setType(){$('#tType').innerHTML=TI[CH.type];$('#tTf').textContent=TFL[CH.tf]}
+$('#tTf').onclick=()=>{CH.tf=TFS[(TFS.indexOf(CH.tf)+1)%TFS.length];setType();drawChart()};
+$('#tType').onclick=()=>{CH.type=TYPES[(TYPES.indexOf(CH.type)+1)%TYPES.length];setType();drawChart()};
+$('#tZoom').onclick=()=>{CH.zoom=(CH.zoom+1)%ZOOMS.length;drawChart()};
+$('#tGrid').onclick=()=>{CH.grid=!CH.grid;$('#tGrid').classList.toggle('on',CH.grid);drawChart()};
+$('#chart').addEventListener('mousemove',e=>{const r=$('#chart').getBoundingClientRect();CH.mx=e.clientX-r.left;CH.my=e.clientY-r.top;drawChart()});
+$('#chart').addEventListener('mouseleave',()=>{CH.mx=CH.my=null;drawChart()});
+if(window.ResizeObserver)new ResizeObserver(()=>drawChart()).observe($('#chart'));
+function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
+function smooth(g,pts,col){const m=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
+ for(let i=0;i<pts.length-1;i++){const a=i===0?pts[0]:m(pts[i-1],pts[i]),e=i===pts.length-2?pts[i+1]:m(pts[i],pts[i+1]);
+  g.beginPath();g.moveTo(a[0],a[1]);g.quadraticCurveTo(pts[i][0],pts[i][1],e[0],e[1]);g.strokeStyle=col(i);g.stroke()}}
+function drawChart(){const cv=$('#cv'),box=$('#chart');if(!cv||!box)return;const W=box.clientWidth,Hh=box.clientHeight;if(W<80||Hh<80)return;
+ const dpr=window.devicePixelRatio||1;if(cv.width!==Math.round(W*dpr)||cv.height!==Math.round(Hh*dpr)){cv.width=Math.round(W*dpr);cv.height=Math.round(Hh*dpr);cv.style.width=W+'px';cv.style.height=Hh+'px'}
+ const g=cv.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+ const L=document.documentElement.dataset.theme==='light';
+ const C={bg:L?'#f6f8fb':'#0a0e16',grid:L?'rgba(0,0,0,.07)':'rgba(255,255,255,.06)',tx:L?'#5a6a82':'#6b7a93',ln:L?'#142033':'#ffffff',up:'#10b981',dn:'#ff4d63',ac:'#2f6bff'};
+ g.fillStyle=C.bg;g.fillRect(0,0,W,Hh);
+ const AX=76,PT=70,PB=30,cw=W-AX,chh=Hh-PT-PB,N=ZOOMS[CH.zoom],ticks=TK[sym];let S=[];
+ if(CH.tf==='T')S=ticks.slice(-N).map(x=>({o:x.p,h:x.p,l:x.p,c:x.p,t:x.t}));
+ else{const iv=CH.tf*1000,seg=ticks.slice(-(N*CH.tf+CH.tf));let cur=null;
+  for(const x of seg){const b=Math.floor(x.t/iv);if(!cur||cur.b!==b){cur={b,o:x.p,h:x.p,l:x.p,c:x.p,t:x.t};S.push(cur)}else{cur.h=Math.max(cur.h,x.p);cur.l=Math.min(cur.l,x.p);cur.c=x.p}}S=S.slice(-N)}
+ if(S.length<2)return;
+ const pos=OPENP.filter(p=>p.sym===sym).pop();let lo=Math.min(...S.map(s=>s.l)),hi=Math.max(...S.map(s=>s.h));
+ if(pos){lo=Math.min(lo,pos.entry);hi=Math.max(hi,pos.entry)}if(hi-lo<1e-9){hi+=1e-5;lo-=1e-5}const pad=(hi-lo)*0.12;lo-=pad;hi+=pad;
+ const Y=v=>PT+chh*(1-(v-lo)/(hi-lo)),slot=cw/(N+3),X=i=>cw-(S.length-1-i)*slot-slot*2,fp=v=>v.toFixed(DEC[sym]);
+ g.font='11px system-ui,sans-serif';g.textBaseline='middle';
+ for(let i=0;i<=5;i++){const v=lo+(hi-lo)*i/5,y=Y(v);if(CH.grid){g.strokeStyle=C.grid;g.lineWidth=1;g.beginPath();g.moveTo(0,y);g.lineTo(cw,y);g.stroke()}g.fillStyle=C.tx;g.textAlign='left';g.fillText(fp(v),cw+8,y)}
+ const every=Math.max(1,Math.round(130/slot));g.textAlign='center';g.textBaseline='alphabetic';
+ for(let i=S.length-1;i>=0;i-=every){const x=X(i);if(x<34||x>cw-24)continue;if(CH.grid){g.strokeStyle=C.grid;g.beginPath();g.moveTo(x,PT);g.lineTo(x,PT+chh);g.stroke()}
+  const d=new Date(S[i].t);g.fillStyle=C.tx;g.fillText(CH.tf===60?d.toTimeString().slice(0,5):d.toTimeString().slice(0,8),x,Hh-10)}
+ const ct=CH.tf==='T'?'line':CH.type;
+ if(ct==='candles'){const bw=Math.max(2,slot*0.62);S.forEach((s,i)=>{const x=X(i),col=s.c>=s.o?C.up:C.dn;g.strokeStyle=g.fillStyle=col;g.lineWidth=1;g.beginPath();g.moveTo(x,Y(s.h));g.lineTo(x,Y(s.l));g.stroke();const y1=Y(Math.max(s.o,s.c)),y2=Y(Math.min(s.o,s.c));g.fillRect(x-bw/2,y1,bw,Math.max(1,y2-y1))})}
+ else{const pts=S.map((s,i)=>[X(i),Y(s.c)]),lp=pts[pts.length-1];
+  if(ct==='area'){const gr=g.createLinearGradient(0,PT,0,PT+chh);gr.addColorStop(0,'rgba(47,107,255,.35)');gr.addColorStop(1,'rgba(47,107,255,0)');
+   g.beginPath();g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length-1;i++){g.quadraticCurveTo(pts[i][0],pts[i][1],(pts[i][0]+pts[i+1][0])/2,(pts[i][1]+pts[i+1][1])/2)}
+   g.lineTo(lp[0],lp[1]);g.lineTo(lp[0],PT+chh);g.lineTo(pts[0][0],PT+chh);g.closePath();g.fillStyle=gr;g.fill()}
+  g.lineWidth=2;g.lineJoin='round';g.lineCap='round';
+  smooth(g,pts,i=>pos?(((pos.side==='buy'?1:-1)*(S[i].c-pos.entry)>=0)?C.up:C.dn):(ct==='area'?C.ac:C.ln))}
+ if(pos){const y=Y(pos.entry);g.setLineDash([6,5]);g.strokeStyle=C.ln;g.lineWidth=1;g.beginPath();g.moveTo(0,y);g.lineTo(cw,y);g.stroke();g.setLineDash([]);
+  g.fillStyle=C.ln;g.textAlign='left';g.font='bold 11px system-ui,sans-serif';g.fillText('ENTRY',8,y+15)}
+ const last=S[S.length-1].c,ly=Y(last),good=pos?((pos.side==='buy'?1:-1)*(last-pos.entry)>=0):last>=S[0].c,pc=good?C.up:C.dn;
+ g.setLineDash([3,4]);g.strokeStyle=pc;g.lineWidth=1;g.beginPath();g.moveTo(0,ly);g.lineTo(cw,ly);g.stroke();g.setLineDash([]);
+ rr(g,cw+3,ly-12,AX-8,24,6);g.fillStyle=pc;g.fill();g.fillStyle='#fff';g.font='bold 12px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(fp(last),cw+3+(AX-8)/2,ly+1);
+ g.beginPath();g.arc(X(S.length-1),ly,5,0,7);g.fillStyle=C.ln;g.fill();g.lineWidth=2;g.strokeStyle=pc;g.stroke();
+ if(CH.mx!=null&&CH.mx<cw&&CH.my>PT&&CH.my<PT+chh){g.setLineDash([2,4]);g.strokeStyle=C.tx;g.lineWidth=1;g.beginPath();g.moveTo(CH.mx,PT);g.lineTo(CH.mx,PT+chh);g.moveTo(0,CH.my);g.lineTo(cw,CH.my);g.stroke();g.setLineDash([]);
+  const v=lo+(hi-lo)*(1-(CH.my-PT)/chh);rr(g,cw+3,CH.my-11,AX-8,22,6);g.fillStyle='#2a3550';g.fill();g.fillStyle='#fff';g.font='11px system-ui,sans-serif';g.textAlign='center';g.fillText(fp(v),cw+3+(AX-8)/2,CH.my+1)}
+ const pxEl=$('#px');pxEl.textContent=fp(P[sym]);pxEl.style.color=good?C.up:C.dn}
+
+// active-trade card above the chart
+function tcard(){const el=$('#tcard'),p=OPENP[OPENP.length-1];if(!p){el.classList.add('hide');return}el.classList.remove('hide');
+ const v=live(p),now=Date.now(),bot=p.bot&&p.exp,secs=bot?Math.max(0,(p.exp-now)/1000):(now-p.t)/1000,prog=bot?Math.min(100,(now-p.t)/(p.exp-p.t)*100):Math.max(0,Math.min(100,v/(p.tp>1e8?200:p.tp)*100));
+ el.innerHTML=`<div class="r"><span class="nm">${nm(p.sym)}</span><span class="tag ${p.side==='buy'?'':'put'}">${p.side==='buy'?'CALL':'PUT'}</span></div>
+ <div class="r"><span class="act">${bot?'Active':'Open'} (${secs.toFixed(1)}s)</span><span class="mu">Stake: $${fmt(p.amt)}</span></div>
+ <div class="r"><span class="mu">P/L: <b class="${v>=0?'up':'dn'}">${v>=0?'+':''}${fmt(v)}</b>${OPENP.length>1?` · +${OPENP.length-1} more open`:''}</span><span class="mu">${p.bot?'Max loss $'+MAXLOSS:'Stop $'+fmt(Math.min(p.sl,1e6))}</span></div>
+ <div class="bar"><i style="width:${prog}%"></i></div>`}
+
+// =====================  ASSETS DRAWER  =====================
+function setSym(k){sym=k;$('#aName2').textContent=nm(k);drawChart();digits()}
+let favs=[];try{favs=JSON.parse(localStorage.getItem('nexa_favs')||'[]')}catch(e){}
+function drawer(){const q=$('#dq').value.toLowerCase();let h='';
+ ['Forex','Crypto'].forEach(t=>{const ks=Object.keys(SYMS).filter(k=>SYMS[k][2]===t&&SYMS[k][0].toLowerCase().includes(q)).sort((a,b)=>favs.includes(b)-favs.includes(a));
+  if(ks.length)h+=`<div class="dh">${t.toUpperCase()}</div>`+ks.map(k=>`<div class="ai ${k===pick?'sel':''}" data-k="${k}"><span class="bd">${SYMS[k][0].slice(0,3)}</span><b>${SYMS[k][0]}</b><span class="st ${favs.includes(k)?'on':''}" data-f="${k}">${favs.includes(k)?'★':'☆'}</span></div>`).join('')});
+ $('#dl').innerHTML=h||'<div class="mu" style="padding:18px">No assets found.</div>';
+ $$('#dl .ai').forEach(e=>e.onclick=ev=>{const f=ev.target.dataset.f;if(f){favs=favs.includes(f)?favs.filter(x=>x!==f):[...favs,f];try{localStorage.setItem('nexa_favs',JSON.stringify(favs))}catch(e){}}else pick=e.dataset.k;drawer()})}
+const openDrawer=()=>{pick=sym;$('#dq').value='';drawer();$('#drawer').classList.add('show');$('#veil').classList.add('show')};
+const closeDrawer=()=>{$('#drawer').classList.remove('show');$('#veil').classList.remove('show')};
+$('#assetBtn').onclick=openDrawer;$('#dClose').onclick=closeDrawer;$('#dq').oninput=drawer;
+$('#veil').onclick=()=>{closeDrawer();closeBotPanel()};
+$('#dSel').onclick=()=>{closeDrawer();setSym(pick);render()};
+$('#dInfo').onclick=()=>alert(`${nm(pick)}\nMarket: ${SYMS[pick][2]}\nLast price: ${P[pick]}`);
+
+// =====================  TRADING  =====================
+const stake=()=>{const v=+$('#amt').value||0;return stakeMode==='payout'?v/0.95:v};
+const calc=(p,cur)=>(p.side==='buy'?1:-1)*(cur-p.entry)/p.entry*p.amt*(p.mul||1)*LEV;
+const live=p=>{const c=P[p.sym];return c==null?0:calc(p,c)};
+const pnl=p=>p.open?live(p):(p.pl!=null?p.pl:calc(p,p.exit??p.entry));
+function openTrade(side,bot,k){const d=D(),u=me(d);if(d.maintenance){if(!bot)alert('Trading is paused for maintenance.');return false}
+ const a=stake();if(!(a>0)){if(!bot)alert('Enter a stake above 0.');return false}
+ const m=u.mode;if(u[m]<a){if(!bot)alert('Insufficient '+m+' balance. Top up first.');return false}
+ const kk=k||sym;u[m]-=a;
+ const pos={id:uid(),uid:u.id,acct:m,sym:kk,side,amt:a,entry:P[kk],mul:+$('#mul').value||1,tp:+$('#tp').value||1e9,sl:+$('#sl').value||1e9,open:true,t:Date.now()};
+ if(bot){pos.bot=true;pos.exp=Date.now()+BOT.dur*1000;BOT.cur={id:pos.id,exp:pos.exp,start:pos.t}}
+ d.positions.push(pos);DB.save(d);render();if(!bot)setTab('open');return true}
+$('#bBuy').onclick=()=>openTrade('buy');$('#bSell').onclick=()=>openTrade('sell');
+function closePos(id,why){const d=D(),p=d.positions.find(x=>x.id===id);if(!p||!p.open)return;
+ const cur=P[p.sym]!=null?P[p.sym]:p.entry;let pl=calc(p,cur);if(p.bot)pl=Math.max(pl,-MAXLOSS);pl=Math.max(pl,-p.amt);
+ p.open=false;p.exit=cur;p.closed=Date.now();p.pl=+pl.toFixed(2);const u=d.users.find(x=>x.id===p.uid);if(u)u[p.acct]+=p.amt+p.pl;DB.save(d);
+ if(p.bot&&BOT.on){BOT.sessions++;p.pl>0?BOT.wins++:BOT.losses++;BOT.pl=+(BOT.pl+p.pl).toFixed(2);BOT.cur=null;BOT.cool=Date.now()+6000;
+  log(`Closed ${nm(p.sym)} ${p.side==='buy'?'CALL':'PUT'} ${p.pl>=0?'+':''}${fmt(p.pl)}${why?' ('+why+')':''}`)}
+ render();tcard();drawChart()}
+window.closePos=closePos;
+function autoClose(){D().positions.filter(p=>p.open&&p.uid===U.id).forEach(p=>{const v=live(p),sl=p.bot?Math.min(p.sl,MAXLOSS):p.sl;
+ if(v>=p.tp)closePos(p.id,'target hit');else if(v<=-sl)closePos(p.id,'stop loss')})}
+
+// close buttons act on pointerdown so the periodic redraw can't swallow the click
+$('#lbody').addEventListener('pointerdown',e=>{
+ if(e.target.closest('[data-closeall]')){e.preventDefault();OPENP.slice().forEach(p=>closePos(p.id,'closed manually'));return}
+ const b=e.target.closest('[data-close]');if(b){e.preventDefault();closePos(b.dataset.close,'closed manually')}});
+$('#lbody').addEventListener('keydown',e=>{if(e.key==='Enter'){const b=e.target.closest('[data-close]');if(b)closePos(b.dataset.close,'closed manually')}});
+
+const empty=(t,s)=>`<div class="empty"><i>◷</i><b>${t}</b><div class="mu" style="font-size:12px;padding:0 20px">${s}</div></div>`;
+function render(){const d=D();U=me(d);$('#bal').textContent='$'+fmt(U[U.mode]);$('#badge').textContent=U.mode==='real'?'R':'D';$('#badge').className='bdg '+U.mode;
+ $('#aR').textContent=U.mode==='real'?'Active':'';$('#aD').textContent=U.mode==='demo'?'Active':'';$('#mt').classList.toggle('hide',!d.maintenance);
+ const ps=d.positions.filter(p=>p.uid===U.id&&p.acct===U.mode),op=ps.filter(p=>p.open),cl=ps.filter(p=>!p.open),tx=d.txs.filter(x=>x.uid===U.id);OPENP=op;
+ $('#cO').textContent=op.length;$('#cC').textContent=cl.length;
+ const card=p=>{try{const v=pnl(p);return`<div class="pc"><div><b>${nm(p.sym)}</b> <span class="${p.side==='buy'?'up':'dn'}">${p.side==='buy'?'CALL':'PUT'}</span>${p.bot?' <span class="mu">· BOT</span>':''}<div class="mu">$${fmt(p.amt)} · x${p.mul||1}</div></div><div style="text-align:right"><b class="${v>=0?'up':'dn'}">${v>=0?'+':''}${fmt(v)}</b>${p.open?`<div><button data-close="${p.id}" style="padding:3px 10px;margin-top:4px">Close</button></div>`:''}</div></div>`}catch(e){return''}};
+ let h;const ca=(tab==='open'&&op.length>1)?`<button data-closeall class="pri" style="width:100%;margin-bottom:8px">Close all (${op.length})</button>`:'';
+ if(tab==='tx')h=tx.slice().reverse().map(x=>`<div class="pc"><div><b>${x.type}</b><div class="mu">${x.method}</div><div class="mu">${new Date(x.t).toLocaleString()}</div></div><div style="text-align:right"><b>$${fmt(x.amt)}</b><div class="mu">${x.status}</div></div></div>`).join('')||empty('No transactions','Your top ups and withdrawals will appear here.');
+ else h=ca+((tab==='open'?op:cl).slice().reverse().map(card).join('')||empty(tab==='open'?'No open positions':'No closed positions','You have no '+(tab==='open'?'active':'closed')+' trading positions at the moment.'));
+ $('#lbody').innerHTML=h;
+ const ss=cl.filter(p=>p.closed>=sess),w=ss.filter(p=>pnl(p)>0).length,t=ss.reduce((a,p)=>a+pnl(p),0);
+ $('#ls1').textContent=`${ss.length} trades (${w}W / ${ss.length-w}L)`;$('#ls2').textContent=(t>=0?'+':'')+fmt(t)+' USD';$('#ls2').className=t>=0?'up':'dn';$('#ls3').textContent=tx.length+' TRANSACTIONS';
+ const seen=+localStorage.getItem('seen'+U.id)||0,n=myNotes(d).filter(n=>n.t>seen).length;$('#nc').textContent=n;$('#nc').classList.toggle('hide',!n);
+ const c7=cl.slice(-7),w7=c7.filter(p=>pnl(p)>0).length,t7=c7.reduce((a,p)=>a+pnl(p),0);
+ $('#lastT').textContent=`LAST ${c7.length}T · ${w7}W · ${c7.length-w7}L`;$('#lastP').textContent=(t7>=0?'+':'')+fmt(t7);$('#lastP').className=t7>=0?'up':'dn';
+ const s=stake();$('#bv').textContent=$('#sv').textContent='$'+fmt(stakeMode==='payout'?(+$('#amt').value||0):s)}
+function tick(){autoClose();botTick();render();digits();drawChart();tcard();botUI()}
+$('#mi').onclick=()=>{$('#amt').value=Math.max(1,(+$('#amt').value||0)-10);render()};$('#pl').onclick=()=>{$('#amt').value=(+$('#amt').value||0)+10;render()};$('#amt').oninput=render;
+$$('#sm button').forEach(b=>b.onclick=()=>{stakeMode=b.dataset.v;$$('#sm button').forEach(x=>x.classList.toggle('on',x===b));render()});
+
+// =====================  DIGITS ROW  =====================
+function digits(){const a=DG[sym],n=a.length||1,c=Array(10).fill(0);a.forEach(x=>c[x]++);const pc=c.map(x=>x/n*100),mx=Math.max(...pc),mn=Math.min(...pc),now=Date.now();
+ const run=BOT.on&&!BOT.paused,ring=run?(now<BOT.sweep+3000?7+Math.floor((now-BOT.sweep)/500)%3:roam):(a.length?a[a.length-1]:0);
+ $('#digits').innerHTML=pc.map((v,i)=>`<div class="dg ${i===ring?'sel':''} ${v===mx&&n>5?'hi':''} ${v===mn&&n>5?'lo':''}"><b>${i}</b>${v.toFixed(0)}%</div>`).join('')}
+
+// =====================  AI BOT  =====================
+// Entry rule: short-term volatility must be normal vs its own 5-minute average, the 60-tick trend must be clean (efficiency ratio),
+// and the last 10 ticks must agree with that trend. The bot scans every market and takes the strongest passing setup.
+function analyse(k){const t=TK[k];if(t.length<310)return null;const w=t.slice(-60).map(x=>x.p),l=t.slice(-300).map(x=>x.p);
+ const rets=a=>a.slice(1).map((v,i)=>(v-a[i])/a[i]),sd=a=>{const m=a.reduce((x,y)=>x+y,0)/a.length;return Math.sqrt(a.reduce((x,y)=>x+(y-m)**2,0)/a.length)};
+ const ratio=sd(rets(w))/(sd(rets(l))||1e-12),path=w.slice(1).reduce((s,v,i)=>s+Math.abs(v-w[i]),0)||1e-12,er=Math.abs(w[59]-w[0])/path;
+ const dir=w[59]>w[0]?'buy':'sell',m10=w[59]-w[49],agree=(dir==='buy')===(m10>0)&&m10!==0;
+ return{k,dir,er,ratio,ok:ratio>0.7&&ratio<1.8&&er>=0.28&&agree}}
+function bestEntry(){let b=null;for(const k in SYMS){const a=analyse(k);if(a&&a.ok&&(!b||a.er>b.er))b=a}return b}
+function needAuth(cb){if(botAuth)return cb();passkey(cb)}
+function startBot(){if(BOT.on&&!BOT.paused)return;
+ if(!BOT.on){if(!(stake()>0))return alert('Enter a stake first (Stake amount).');
+  Object.assign(BOT,{on:true,paused:false,sessions:0,wins:0,losses:0,pl:0,logs:[],cool:Date.now()+2000,cur:null,lastScan:0,dur:+$('#bDur').value||30});
+  log('Initialized...');log('Scanning the market for an entry...')}
+ else{BOT.paused=false;log('Resumed.')}
+ botUI();digits()}
+function endBot(why,silent){D().positions.filter(p=>p.open&&p.bot&&p.uid===U.id).forEach(p=>closePos(p.id,'bot stopped'));
+ log(why||'Stopped.');BOT.on=false;BOT.paused=false;BOT.cur=null;
+ botAuth=false;sessionStorage.removeItem('botAuth');            // bot is locked again: the passkey is needed to use it
+ closeBotPanel();botUI();digits();if(!silent)toast(`Bot stopped${why?' — '+why:''}. Enter your passkey to use the bot again.`)}
+function botTick(){if(!BOT.on)return;
+ if(BOT.cur&&Date.now()>=BOT.cur.exp)closePos(BOT.cur.id,'session ended');
+ if(BOT.paused)return;
+ const eff=Math.min(+$('#sl').value||MAXLOSS,MAXLOSS),tp=+$('#tp').value||1e9;
+ if(BOT.pl>=tp)return endBot('Target profit reached');
+ if(BOT.pl<=-eff)return endBot('Loss limit reached');
+ if(BOT.cur||Date.now()<BOT.cool)return;
+ if(U[U.mode]<stake())return endBot('Insufficient balance');
+ const a=bestEntry();
+ if(!a){if(Date.now()-BOT.lastScan>12000){BOT.lastScan=Date.now();log(`Scanning ${Object.keys(SYMS).length} markets — no clean entry yet...`)}return}
+ log(`Entry found: ${nm(a.k)} ${a.dir==='buy'?'CALL':'PUT'} (trend ${a.er.toFixed(2)}, vol x${a.ratio.toFixed(2)})`);
+ BOT.sweep=Date.now();setSym(a.k);
+ if(openTrade(a.dir,true,a.k))log(`Opened ${a.dir==='buy'?'CALL':'PUT'} on ${nm(a.k)} for $${fmt(stake())}`);else BOT.cool=Date.now()+5000}
+let _lg=-1;
+function botUI(){if(!U)return;const on=BOT.on,run=on&&!BOT.paused;
+ $('#term').classList.toggle('hide',!on);$('#bsWrap').classList.toggle('hide',on);$('#stopWrap').classList.toggle('hide',!on);
+ $$('#tm button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='auto')===on));
+ if(on){$('#term').innerHTML=BOT.logs.slice(-2).map(l=>`<div>[${l[0]}] ${l[1]}</div>`).join('');
+  $('#stopTxt').innerHTML=`STOP AUTO TRADING<small>P/L: $${fmt(BOT.pl)} &nbsp;•&nbsp; ${BOT.sessions} Trades</small>`}
+ if(!$('#botp').classList.contains('show'))return;
+ const dur=on?BOT.dur:(+$('#bDur').value||30),t=BOT.wins+BOT.losses;
+ $('#bsBal').textContent='$'+fmt(U[U.mode]);$('#bsAmt').textContent='$ '+(+stake().toFixed(2));$('#bsDur').textContent=dur>=60?(dur/60)+' Min':dur+' Secs';$('#bsSes').textContent=BOT.sessions;
+ $('#bsPl').textContent=(BOT.pl>=0?'+':'-')+'$'+fmt(Math.abs(BOT.pl));$('#bsPl').style.color=BOT.pl>=0?'#10b981':'#ff2d46';$('#bsWr').textContent=t?Math.round(BOT.wins/t*100)+'%':'—';
+ $('#wW').textContent=BOT.wins;$('#wL').textContent=BOT.losses;$('#wT').textContent=t+' trades';$('#pb').classList.toggle('empty',!t);$('#pbi').style.width=t?(BOT.wins/t*100)+'%':'0';
+ $('#wp1').textContent=t?Math.round(BOT.wins/t*100)+'% win rate':'—';$('#wp2').textContent=t?Math.round(BOT.losses/t*100)+'% loss rate':'—';
+ const st=$('#bSt');st.textContent='● '+(!on?'Stopped':BOT.paused?'Paused':BOT.cur?'Trading Active':'Scanning');st.className='spill'+(run?'':' off');
+ if(BOT.cur){const rem=(BOT.cur.exp-Date.now())/1000;$('#bTm').textContent=mmss(rem);$('#bTb').style.width=Math.min(100,(1-rem/BOT.dur)*100)+'%'}else{$('#bTm').textContent='00:00';$('#bTb').style.width='0'}
+ $('#bSs').textContent='Sessions: '+BOT.sessions;
+ $('#bStart').textContent=BOT.paused?'Resume':'Start';$('#bStart').disabled=run;$('#bPause').disabled=!run;$('#bStop').disabled=!on;$('#bDur').disabled=on;
+ if(_lg!==BOT.logs.length){_lg=BOT.logs.length;$('#bLn').textContent=_lg+' entries';$('#bLog').innerHTML=BOT.logs.map(l=>`<div><span>[${l[0]}]</span> ${l[1]}</div>`).join('');$('#bLog').scrollTop=1e9}}
+function openBotPanel(){$('#botp').classList.add('show');$('#veil').classList.add('show');botUI()}
+function closeBotPanel(){$('#botp').classList.remove('show');if(!$('#drawer').classList.contains('show'))$('#veil').classList.remove('show')}
+$('#bpBack').onclick=closeBotPanel;
+$('#bStart').onclick=()=>needAuth(startBot);$('#bPause').onclick=()=>{BOT.paused=true;log('Paused.');botUI();digits()};$('#bStop').onclick=()=>endBot('Stopped by user');
+$('#bDur').onchange=()=>{if(!BOT.on)BOT.dur=+$('#bDur').value;botUI()};
+$('#stopBtn').onclick=()=>endBot('Stopped by user');
+$$('#tm button').forEach(b=>b.onclick=()=>{if(b.dataset.v==='auto')needAuth(startBot);else if(BOT.on)endBot('Switched to manual')});
+$('#fab').onclick=()=>needAuth(openBotPanel);$('#bAI').onclick=$('#scanBtn').onclick=()=>needAuth(openBotPanel);
+function passkey(cb){M(head('Entry Scanner')+`<div style="text-align:center"><div class="lock">🔒</div><b style="font-size:17px">System Access Restricted</b><p class="mu">Please enter your authorized passkey to deploy the AI Auto Trader.</p>
+ <input id="pk" class="field" placeholder="ENTER PASSKEY" autocomplete="off" style="text-align:center;letter-spacing:4px"><div id="pe" class="dn"></div><button id="pgo" class="pri big2">Authenticate</button></div>`);
+ const go=()=>{if($('#pk').value.trim().toUpperCase()===PASSKEY){botAuth=true;sessionStorage.setItem('botAuth','1');closeM();cb()}else $('#pe').textContent='Incorrect passkey.'};
+ $('#pgo').onclick=go;onEnter($('#pk'),go);setTimeout(()=>$('#pk').focus(),50)}
+
+// =====================  TOP UP / WITHDRAW  =====================
+const mdl=$('#mdl'),closeM=()=>mdl.classList.remove('show');window.closeM=closeM;
+function M(h,back){$('#mbody').innerHTML=h;mdl.classList.add('show');if(back&&$('#mback'))$('#mback').onclick=back}
+const head=(t,s,b)=>`<div class="mh">${b?'<button class="x" id="mback">←</button>':''}<div><b>${t}</b><div class="mu">${s||''}</div></div><button class="x" onclick="closeM()">✕</button></div>`;
+const opt=(id,i,t,s)=>`<button class="opt" id="${id}"><i>${i}</i><div><b>${t}</b><span>${s}</span></div></button>`;
+function addTx(type,method,amt,ref,extra){const d=D(),u=me(d);if(type==='Withdraw')u.real-=amt;
+ const t={id:uid(),uid:u.id,type,method,cur:'USD',amt,ref,status:'Pending',t:Date.now(),...(extra||{})};d.txs.push(t);DB.save(d);render();return t}
+function cancelTx(id){const d=D(),x=d.txs.find(t=>t.id===id);if(x&&x.status==='Pending'){x.status='Cancelled';DB.save(d);render()}}
+function done(t,s){M(head(t)+`<p class="mu">${s}</p><button class="pri big2" onclick="closeM()">Done</button>`);setTab('tx')}
+function topup(){if(isInv())return alert('Investor access can trade but cannot top up.');
+ M(head('Top Up Funds','Choose payment method')+opt('oM','▯','M-Pesa','Mobile Money')+opt('oC','₿','Cryptocurrency','USDT, BTC, ETH & More')+opt('oK','▭','Credit / Debit Card','Visa, Mastercard'));
+ $('#oM').onclick=()=>amountStep('mpesa');$('#oC').onclick=()=>amountStep('crypto');$('#oK').onclick=cardStep}
+function amountStep(m){M(head('Enter Amount',`Minimum $${MIN[m]}`,1)+`<input id="ta" type="number" class="field" placeholder="$ 0.00" style="font-size:20px"><div class="qa">${[50,100,250,500,1000].map(v=>`<button data-q="${v}">$${v}</button>`).join('')}</div>
+ <div class="fl">PROMO CODE (OPTIONAL)</div><input class="field" placeholder="Enter promo code"><div id="te" class="dn"></div><button id="tgo" class="pri big2">Continue to Selection</button>`,topup);
+ const mark=()=>$$('[data-q]').forEach(b=>b.classList.toggle('on',b.dataset.q===$('#ta').value));
+ $$('[data-q]').forEach(b=>b.onclick=()=>{$('#ta').value=b.dataset.q;mark()});$('#ta').oninput=mark;
+ $('#tgo').onclick=()=>{const a=+$('#ta').value;if(!(a>=MIN[m]))return $('#te').textContent=`Minimum deposit is $${MIN[m]}.`;m==='mpesa'?phoneStep(a):coinStep(a)}}
+function phoneStep(a){M(head('M-Pesa',`Top up $${a}`,1)+`<div class="fl">M-PESA PHONE NUMBER</div><input id="ph" class="field" placeholder="2547XXXXXXXX"><div id="te" class="dn"></div><button id="pgo2" class="pri big2">Pay with M-Pesa</button>`,()=>amountStep('mpesa'));
+ $('#pgo2').onclick=()=>{const p=$('#ph').value.trim();if(!/^(254|0)\d{9}$/.test(p))return $('#te').textContent='Enter a valid Safaricom number.';
+  addTx('Deposit','M-Pesa',a,p);done('Request received','Your M-Pesa top up is pending. (Daraja STK Push will be connected here.)')}}
+function coinStep(a){M(head('Select Currency',`Topping Up $${a}`,1)+'<div class="fl">SELECT CRYPTOCURRENCY</div>'+
+ Object.keys(COINS).map(c=>`<button class="opt" data-c="${c}"><i>${ico(c)}</i><div><b>${c}</b><span>${COINS[c].n}</span></div></button>`).join(''),()=>amountStep('crypto'));
+ $$('[data-c]').forEach(b=>b.onclick=()=>netStep(a,b.dataset.c))}
+function netStep(a,c){const nets=COINS[c].nets,one=nets.length===1;let sel=one&&ADDR[nets[0]]?nets[0]:null;
+ M(head('Select Network',`Topping Up $${a}`,1)+`<div class="cc"><i class="coin">${ico(c)}</i><div><b>${c}</b><span>${COINS[c].n}</span></div></div><div class="fl" style="margin:22px 0 12px">SELECT NETWORK</div>`+
+ nets.map(n=>{const N=NETS[n],ok=!!ADDR[n];return`<button class="net ${ok?'':'off'} ${sel===n?'sel':''}" data-n="${n}" ${ok?'':'disabled'}><i class="coin">${ico(N.ic)}</i><div>${N.t}${one&&N.s?' '+N.s:''}${!one&&N.s?`<small>${N.s}</small>`:''}${ok?'':'<small>Unavailable right now</small>'}</div></button>`}).join('')+
+ `<button class="gen" id="gen" ${sel?'':'disabled'}>GENERATE ADDRESS →</button>`,()=>coinStep(a));
+ $$('[data-n]').forEach(b=>b.onclick=()=>{sel=b.dataset.n;$$('.net').forEach(x=>x.classList.toggle('sel',x===b));$('#gen').disabled=false});
+ $('#gen').onclick=()=>{if(!sel)return;$('#gen').disabled=true;$('#gen').textContent='GENERATING...';loadRates().then(()=>setTimeout(()=>addrStep(a,c,sel),900))}}
+function addrStep(a,c,n){const addr=ADDR[n],r=RATE[c],amt=r?(a/r).toFixed(c==='USDT'?2:8):null;
+ const tx=addTx('Deposit',`Crypto · ${c} (${NETS[n].t})`,a,addr,{coin:c,net:n,coinAmt:amt});
+ M(head('Select Network',`Topping Up $${a}`,1)+`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span class="fl" style="margin:0">${c} ADDRESS</span><span class="pill">${c}</span></div>
+ <div class="qrbox"><div class="qr" id="qr"></div><div class="addr"><code>${addr}</code><button class="cp" id="cp">COPY</button></div>
+ <div class="amt2">${amt?`Send <b>${amt}</b> ${c}`:`Send the equivalent of <b>$${a}</b> in ${c}`}</div><div class="stat"><i></i>STATUS: WAITING</div></div>
+ <p class="warn">Send only <b>${c}</b> on the <b>${NETS[n].t}</b> network to this address. Other networks or coins will be lost.</p>
+ <button class="cancel" id="cx">CANCEL TRANSACTION</button>`,()=>{cancelTx(tx.id);netStep(a,c)});
+ if(window.QRCode)new QRCode($('#qr'),{text:addr,width:176,height:176,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+ else $('#qr').innerHTML='<div style="color:#000;line-height:1.4;padding:30px 10px;font-size:12px;width:176px">QR code unavailable offline. Use the address below.</div>';
+ $('#cp').onclick=()=>{const dn=()=>{$('#cp').textContent='COPIED'};if(navigator.clipboard)navigator.clipboard.writeText(addr).then(dn,dn);else dn()};
+ $('#cx').onclick=()=>{cancelTx(tx.id);closeM();setTab('tx')}}
+function cardStep(){M(head('Card Top Up','Enter details below',1)+`<div class="fl">AMOUNT (USD)</div><input id="ca" type="number" class="field" placeholder="$ 0.00"><div class="fl">CARDHOLDER NAME</div><input id="cn" class="field" placeholder="John Doe">
+ <div class="fl">CARD NUMBER</div><input id="cc" class="field" placeholder="0000 0000 0000 0000" inputmode="numeric"><div class="row"><div><div class="fl">EXPIRY DATE</div><input id="ce" class="field" placeholder="MM/YY"></div><div><div class="fl">CVC</div><input id="cv2" class="field" placeholder="123" inputmode="numeric"></div></div>
+ <div id="te" class="dn"></div><button id="cgo2" class="pri big2">Pay with card</button><p class="mu" style="text-align:center;font-size:11px">🔒 Card details are not stored. Connect a payment processor for live payments.</p>`,topup);
+ $('#cgo2').onclick=()=>{const a=+$('#ca').value,n=$('#cc').value.replace(/\s/g,'');if(!(a>=MIN.card))return $('#te').textContent=`Minimum deposit is $${MIN.card}.`;
+  if(!$('#cn').value.trim()||!/^\d{13,19}$/.test(n)||!/^\d{2}\/\d{2}$/.test($('#ce').value)||!/^\d{3,4}$/.test($('#cv2').value))return $('#te').textContent='Check the card details.';
+  addTx('Deposit','Card ••'+n.slice(-4),a,'');done('Payment submitted','Your card top up is pending confirmation.')}}
+function withdraw(){if(isInv())return alert('Investor access can trade but cannot withdraw.');
+ M(head('Withdraw','From your Real account')+`<div class="mu">Available: $${fmt(U.real)}</div><select id="wm" class="field"><option value="mpesa">M-Pesa</option><option value="crypto">Crypto</option><option value="card">Card</option></select>
+ <input id="wa" type="number" class="field" placeholder="Amount (USD)"><input id="wd" class="field" placeholder="Phone, wallet address or card ref"><div id="te" class="dn"></div><button id="wgo" class="pri big2">Request withdrawal</button>
+ <p class="mu" style="font-size:12px">Having trouble? Message support in Chat and an admin can help submit it for you.</p>`);
+ $('#wgo').onclick=()=>{const m=$('#wm').value,a=+$('#wa').value;if(!(a>=MIN[m]))return $('#te').textContent=`Minimum is $${MIN[m]}.`;if(a>U.real)return $('#te').textContent='Insufficient real balance.';if(!$('#wd').value.trim())return $('#te').textContent='Enter payout details.';
+  addTx('Withdraw',$('#wm').selectedOptions[0].text,a,$('#wd').value.trim());done('Withdrawal requested','An admin will review it before payout.')}}
+
+// =====================  SUPPORT CHAT: first message gets a greeting, later ones go to admin  =====================
+function drawChat(){const c=D().chats.filter(x=>x.uid===U.id&&x.from!=='flag');$('#chatlog').innerHTML=c.length?c.map(m=>`<div class="msg ${m.from==='user'?'me':'bot'}">${m.text}</div>`).join(''):'<div class="mu">Send a message to start.</div>';$('#chatlog').scrollTop=1e9}
+function sendChat(){const t=$('#cin').value.trim();if(!t)return;$('#cin').value='';const d=D(),first=!d.chats.some(x=>x.uid===U.id&&x.from==='user');
+ d.chats.push({uid:U.id,from:'user',text:t,t:Date.now()});
+ if(first)d.chats.push({uid:U.id,from:'ai',text:'Hello, how can we help you?',t:Date.now()});
+ else d.chats.push({uid:U.id,from:'flag',text:t,t:Date.now(),esc:true});
+ DB.save(d);drawChat()}
+$('#cgo').onclick=sendChat;onEnter($('#cin'),sendChat);
+setInterval(()=>{if(U)drawChat()},4000);
+boot();
+</script></body></html>

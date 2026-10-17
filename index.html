@@ -1,0 +1,110 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NexaMarkets – Trading Made Easy</title>
+<style>
+:root{--bg:#060a14;--cd:#111826;--ln:#1c2638;--mu:#8b97ab;--ac:#2f6bff;--ac2:#4d86ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font:16px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+a{color:inherit;text-decoration:none}.wrap{max-width:1560px;margin:0 auto;padding:0 30px}
+nav{display:flex;align-items:center;justify-content:space-between;height:82px;border-bottom:1px solid #0f1624;position:sticky;top:0;background:#060a14ee;backdrop-filter:blur(8px);z-index:10;max-width:1600px;margin:0 auto;padding:0 30px}
+.brand{display:flex;align-items:center;gap:12px;font-size:23px;font-weight:700;letter-spacing:-.5px}
+.tile{display:block;width:44px;height:44px;border-radius:12px;overflow:hidden;flex:none;box-shadow:0 4px 14px #0008}.tile img{width:100%;height:100%;display:block;object-fit:cover}
+.links{display:flex;gap:40px;color:#9aa6ba;font-size:16px}.links a:hover{color:#fff}
+.nr{display:flex;align-items:center;gap:26px}.nr .li{font-weight:600;white-space:nowrap}.nr .li:hover{color:#6f9bff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-weight:700;border:0;cursor:pointer;color:#fff;background:var(--ac);transition:.15s;white-space:nowrap}
+.btn:hover{background:var(--ac2);transform:translateY(-1px)}.btn.sm{padding:12px 26px;font-size:16px}
+.btn.lg{padding:0 40px;height:60px;font-size:19px;box-shadow:0 10px 30px #2f6bff55}.btn.gh{background:#111a2b;box-shadow:none;font-weight:600}.btn.gh:hover{background:#17223a}
+.hero{text-align:center;padding:96px 0 40px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1px solid #2f6bff55;background:#2f6bff14;border-radius:999px;color:#6f9bff;font-weight:600;font-size:16px}
+h1{font-size:clamp(38px,6.4vw,92px);line-height:1.1;margin:34px 0 26px;letter-spacing:-2px;font-weight:800}h1 span{color:#3d7bff}
+.hero p{max-width:860px;margin:0 auto;color:#8b97ab;font-size:clamp(17px,1.6vw,23px);line-height:1.65}
+.cta{display:flex;gap:20px;justify-content:center;margin:50px 0 56px;flex-wrap:wrap}
+.pills{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;color:#9aa6ba}.pills div{display:flex;align-items:center;gap:10px}
+.pi{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid #243049;background:#0d1424;color:var(--ac2)}.pi svg{width:14px;height:14px}
+.chartbox{max-width:1220px;height:560px;margin:56px auto 0;border:1px solid #1a2438;border-radius:34px;overflow:hidden;background:#0c0f14;box-shadow:0 30px 80px #0008}
+.chartbox>div,.chartbox .tradingview-widget-container__widget{height:100%;width:100%}
+.ticker{height:76px;margin-top:70px;border-top:1px solid #131c2e;border-bottom:1px solid #131c2e;overflow:hidden}
+section{padding:100px 0;position:relative}.eyebrow{text-align:center;color:var(--ac2);font-weight:700;letter-spacing:1.2px;font-size:15px;text-transform:uppercase}
+h2{text-align:center;font-size:clamp(32px,4.6vw,62px);margin:8px 0 64px;letter-spacing:-1.2px;font-weight:800;line-height:1.15}
+#how:before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;height:700px;max-width:100%;background:radial-gradient(closest-side,#2f6bff1c,transparent);pointer-events:none}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1380px;margin:0 auto;position:relative}
+.steps:before{content:"";position:absolute;left:10%;right:10%;top:76px;height:2px;background:#1b3a7a}
+.card{background:var(--cd);border:1px solid var(--ln);border-radius:22px;padding:34px;position:relative}
+.step{text-align:center;padding:40px 36px 44px}.step .ic{position:relative;width:70px;height:70px;border-radius:50%;background:#16203a;border:1px solid #243049;display:grid;place-items:center;margin:0 auto 34px;color:var(--ac2)}
+.step .ic svg{width:26px;height:26px}.step .n{position:absolute;top:-6px;right:-8px;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;font-size:14px;font-weight:800;display:grid;place-items:center;box-shadow:0 0 14px #2f6bff88}
+.card h3{margin:0 0 10px;font-size:22px;font-weight:700}.card p{margin:0;color:#8b97ab;font-size:16.5px;line-height:1.7}
+.feat .ic{width:50px;height:50px;border-radius:12px;display:grid;place-items:center;margin-bottom:34px}.feat .ic svg{width:22px;height:22px}.feat h3{font-size:21px}
+.stars{color:#ffb870;font-size:21px;letter-spacing:4px;margin-bottom:22px}.q{font-style:italic;color:#a6b1c3;font-size:18px;line-height:1.7;margin-bottom:30px}
+.who{display:flex;align-items:center;gap:16px}.av{width:60px;height:60px;border-radius:50%;background:#16264a;color:var(--ac2);display:grid;place-items:center;font-size:24px;font-weight:800}.who b{display:block;font-size:19px}.who span{color:#6b7790;font-size:15px}
+.final{text-align:center}.final p{color:#8b97ab;max-width:640px;margin:-30px auto 40px}
+footer{border-top:1px solid #0f1624;padding:46px 0 34px}.ft{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.ft .brand{font-size:19px;gap:10px}.ft .tile{width:34px;height:34px;border-radius:9px}.ft .mu{color:#6b7790;font-size:15px}.ft .lk{display:flex;gap:22px;color:#9aa6ba}.ft .lk a:hover{color:#fff}
+.risk{max-width:1100px;margin:26px auto 0;text-align:center;color:#59647a;font-size:12.5px}
+@media(max-width:980px){.links{display:none}.grid3{grid-template-columns:1fr}.steps:before{display:none}.hero{padding-top:60px}.chartbox{height:380px;border-radius:22px}section{padding:70px 0}.pills{gap:20px}}
+@media(max-width:560px){nav{padding:0 14px;height:70px}.brand{font-size:19px;gap:10px}.tile{width:38px;height:38px}.nr{gap:14px}.nr .li{font-size:15px}.btn.sm{padding:10px 18px;font-size:15px}.wrap{padding:0 18px}.btn.lg{padding:0 28px;font-size:17px;height:54px}}
+</style></head><body>
+
+<nav><a class="brand" href="#"><span class="tile"><img src="assets/logo.png" alt="NexaMarkets logo"></span>NexaMarkets</a>
+ <div class="links"><a href="#features">Features</a><a href="#how">How It Works</a><a href="#reviews">Reviews</a></div>
+ <div class="nr"><a class="li" href="app.html">Log in</a><a class="btn sm" href="signup.html">Get Started</a></div></nav>
+
+<header class="hero wrap">
+ <span class="badge">✦ Free demo account · Forex &amp; crypto markets</span>
+ <h1>Trading Made Easy, <span>Trade Smart</span></h1>
+ <p>Trade forex and crypto with a free demo account, AI-assisted market scanning and fast-response customer support.</p>
+ <div class="cta"><a class="btn lg" href="signup.html">Get Started — It's Free &nbsp;→</a><a class="btn lg gh" href="signup.html">▷ &nbsp;Try Demo</a></div>
+ <div class="pills" id="pills"></div>
+ <div class="chartbox" id="chart"></div>
+</header>
+
+<div class="ticker" id="ticker"></div>
+
+<section id="how"><div class="wrap"><div class="eyebrow">Get Started</div><h2>Three steps to your first trade</h2><div class="grid3 steps" id="steps"></div></div></section>
+<section id="features"><div class="wrap"><div class="eyebrow">Platform</div><h2>Built for serious traders</h2><div class="grid3" id="feats"></div></div></section>
+<section id="reviews"><div class="wrap"><div class="eyebrow">Reviews</div><h2>Loved by traders worldwide</h2><div class="grid3" id="revs"></div></div></section>
+<section class="final"><div class="wrap"><h2>Ready to start?</h2><p>Open a free account and practise on the demo balance before you trade with real funds.</p><a class="btn lg" href="signup.html">Create free account &nbsp;→</a></div></section>
+
+<footer><div class="wrap"><div class="ft">
+ <div class="brand"><span class="tile"><img src="assets/logo.png" alt=""></span>NexaMarkets</div>
+ <div class="mu">© 2026 NexaMarkets. All rights reserved.</div>
+ <div class="lk"><a href="#">Terms</a><a href="#">Privacy</a></div></div>
+ <p class="risk">Trading forex and crypto involves a high level of risk and can result in the loss of your entire stake. Use proper risk management and only trade with money you can afford to lose.</p></div></footer>
+
+<script>
+const I={
+ bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',pct:'<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2"/><circle cx="17" cy="17" r="2"/>',
+ shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',card:'<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/>',
+ user:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 6-6s6 2.5 6 6"/><path d="M19 8v6M16 11h6"/>',trend:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+ pulse:'<path d="M3 12h4l3-8 4 16 3-8h4"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+ dollar:'<path d="M12 3v18M16.5 7.5C15.5 6 13.5 5.5 12 5.5c-2 0-4 1-4 3s2 2.8 4 3.2 4 1.2 4 3.3-2 3.5-4 3.5c-1.8 0-3.8-.7-4.7-2.3"/>',
+ phone:'<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/>',head:'<path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'};
+const svg=(k,s)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${s||''}>${I[k]}</svg>`;
+// Only claim what is true for your platform. Edit these lists when you have verified figures.
+pills.innerHTML=[['bolt','Fast execution'],['pct','Up to 95% payout'],['shield','Secure sign-in'],['card','Free demo account']].map(p=>`<div><span class="pi">${svg(p[0])}</span>${p[1]}</div>`).join('');
+steps.innerHTML=[['user','Sign Up','Create your free account in under a minute and start with a $10,000 demo balance.'],
+ ['card','Top Up','Fund with M-Pesa, crypto or card. Minimum $5 with M-Pesa, $10 with crypto or card.'],
+ ['trend','Trade & Earn','Choose an asset, predict the direction and earn up to 95% payout on a winning trade. Trading involves risk.']]
+ .map((s,i)=>`<div class="card step"><div class="ic">${svg(s[0])}<span class="n">${i+1}</span></div><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join('');
+const T=[['#3a2210','#ff9a3d'],['#3a2210','#ff9a3d'],['#3a2210','#ff9a3d'],['#3a1620','#ff5c6e'],['#0e2f3a','#19c2e0'],['#271f4a','#a77bff']];
+feats.innerHTML=[['pulse','Fast Execution','Place a Buy or Sell in one click and manage every position from the left panel.'],
+ ['shield','Account Protection','Password-protected accounts, a separate demo balance, and admin-reviewed withdrawals.'],
+ ['globe','28+ Markets','Major forex pairs and top cryptocurrencies, with live TradingView charts, in one place.'],
+ ['dollar','Transparent Pricing','Minimums and payouts are shown up front, before you confirm a top up or a trade.'],
+ ['phone','Trade Anywhere','A responsive web app that works on your phone, tablet or desktop.'],
+ ['head','24/7 Support','Message our team any time through live chat. Questions go straight to an admin.']]
+ .map((f,i)=>`<div class="card feat"><div class="ic" style="background:${T[i][0]};color:${T[i][1]}">${svg(f[0])}</div><h3>${f[1]}</h3><p>${f[2]}</p></div>`).join('');
+// REVIEWS: replace the placeholders with genuine feedback from real customers (with their permission).
+const REVIEWS=[
+ {n:'Brian O.',r:'Nairobi',t:'"M-Pesa deposits land instantly and payouts hit my phone in seconds. PalOption just works."'},
+ {n:'Priya N.',r:'Dubai',t:'"Clean, fast, no clutter. I place a trade in two taps and the charts never lag."'},
+ {n:'Aisha K.',r:'Kampala',t:'"The mobile app is beautiful and dead simple. I trade on my commute every morning."'},
+ {n:'Michael R.',r:'Lamu',t:'"Execution is genuinely instant. Perfect for the quick in-and-out trades I like."'},
+ {n:'Amina S..',r:'Lagos',t:'"Started on the demo, moved to live in a week. Withdrawals have never let me down."'},
+ {n:'Marcus T',r:'Toronto',t:'"Tried a dozen platforms over the years — this one finally feels built for real traders."'}];
+revs.innerHTML=REVIEWS.map(v=>`<div class="card"><div class="stars">★★★★★</div><div class="q">"${v.t}"</div><div class="who"><div class="av">${v.n[0]}</div><div><b>${v.n}</b><span>${v.r}</span></div></div></div>`).join('');
+function tv(el,name,cfg){const box=document.getElementById(el);box.innerHTML='<div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget"></div></div>';
+ const s=document.createElement('script');s.src='https://s3.tradingview.com/external-embedding/embed-widget-'+name+'.js';s.async=true;s.innerHTML=JSON.stringify(cfg);box.firstChild.appendChild(s)}
+tv('chart','advanced-chart',{autosize:true,symbol:'BITSTAMP:BTCUSD',interval:'D',range:'12M',timezone:'Etc/UTC',theme:'dark',style:'3',locale:'en',backgroundColor:'#0c0f14',gridColor:'rgba(255,255,255,0.04)',
+ allow_symbol_change:false,hide_top_toolbar:true,hide_side_toolbar:true,hide_legend:true,hide_volume:true,withdateranges:false,save_image:false,calendar:false,studies:[]});
+tv('ticker','ticker-tape',{symbols:[{proName:'FX:EURUSD',title:'EUR/USD'},{proName:'BITSTAMP:BTCUSD',title:'Bitcoin'},{proName:'BITSTAMP:ETHUSD',title:'Ethereum'},{proName:'OANDA:XAUUSD',title:'Gold'},{proName:'TVC:USOIL',title:'Crude Oil'},
+ {proName:'FX:GBPUSD',title:'GBP/USD'},{proName:'FX:USDJPY',title:'USD/JPY'},{proName:'BINANCE:SOLUSDT',title:'Solana'},{proName:'FOREXCOM:SPXUSD',title:'S&P 500'},{proName:'FOREXCOM:NSXUSD',title:'Nasdaq 100'}],
+ showSymbolLogo:true,colorTheme:'dark',isTransparent:true,displayMode:'adaptive',locale:'en'});
+</script></body></html>
